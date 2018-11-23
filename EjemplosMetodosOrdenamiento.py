@@ -2,6 +2,7 @@ from random import random
 import timeit
 from pip._vendor.distlib.compat import raw_input
 from _overlapped import NULL
+from Tools.demo import vector
 
 class MetodosOrdenamiento:
     
@@ -152,15 +153,18 @@ class MetodosOrdenamiento:
     
     def ordenamientoShellSort(self, vector):
         '''
-        int contRecorrido6=0, contComparaciones6=0, contIntercambios6=0;
-        long tiempoFinal=0;
+        m = MetodosOrdenamiento
         
-        int salto, aux, i;
-        boolean cambios;
+        contRecorrido6 = 0
+        contComparaciones6 = 0
+        contIntercambios6 = 0
         
-        long tiempoInicial = System.nanoTime();
+        salto=0 
+        aux=0 
+        i=0
+        cambios = True
         
-        for(salto=numeros.length/2; salto != 0; salto/=2) {
+        for i in range(salto = len(vector/2), (salto=numeros.length/2; salto != 0; salto/=2) {
             cambios = true;
             while(cambios) {
                 cambios = false;
@@ -182,8 +186,27 @@ class MetodosOrdenamiento:
         tiempoFinal = System.nanoTime() - tiempoInicial;
         
         mostrarDatosEficiencia(contRecorrido6, contComparaciones6, contIntercambios6, tiempoFinal);
-         ''' 
+        '''
 
+    def ordenamientoQuickSort(self, vector):
+        
+        izquierda=[]
+        centro=[]
+        derecha=[]
+        if (len(vector)>1):
+            pivote = vector[0]
+            for i in vector:
+                if i<pivote:
+                    izquierda.append(i)
+                elif i==pivote:
+                    centro.append(i)
+                elif i>pivote:
+                    derecha.append(i)
+        
+            return mo.ordenamientoQuickSort(None, izquierda) + centro + mo.ordenamientoQuickSort(None, derecha)
+        else:
+            return vector
+    
     def mostrarVector(self, vector):
         
         contador = 0
