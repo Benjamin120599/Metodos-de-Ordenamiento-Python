@@ -201,18 +201,65 @@ class MetodosOrdenamiento:
         
         m = MetodosOrdenamiento
         
-        contRecorrido7=0
-        contComparaciones7=0
-        contIntercambios7=0
-        
         if izq < der:
             pivote_indice = m.particion(None, vector, izq, der)
             m.ordenamientoQuickSort(None, vector, izq, pivote_indice-1)
             m.ordenamientoQuickSort(None, vector, pivote_indice+1, der)
         
-        tiempoFinal = timeit.timeit()
         return vector
 
+    def counting_sort(self, arr, max_value, get_index):
+        
+        counts = [0] * max_value
+    
+        # Counting - O(n)
+        for a in arr:
+            counts[get_index(a)] += 1
+      
+        # Accumulating - O(k)
+        for i, c in enumerate(counts):
+            if i == 0:
+                continue
+            else:
+                counts[i] += counts[i-1]
+    
+        # Calculating start index - O(k)
+        for i, c in enumerate(counts[:-1]):
+            if i == 0:
+                counts[i] = 0
+            counts[i+1] = c
+    
+        ret = [None] * len(arr)
+        # Sorting - O(n)
+        for a in arr:
+            index = counts[get_index(a)]
+            ret[index] = a
+            counts[get_index(a)] += 1
+      
+        return ret
+
+    def get_digit(self, n, d):
+        for i in range(d-1):
+            n //= 10
+        return n % 10
+
+    def get_num_difit(self, n):
+        i = 0
+        while n > 0:
+            n //= 10
+            i += 1
+        return i
+
+    def ordenamientoRadixSort(self, arr, max_value):
+        
+        m = MetodosOrdenamiento
+            
+        num_digits = m.get_num_difit(None, max_value)
+        # O(k(n+k))
+        for d in range(num_digits):
+            # Counting sort takes O(n+k)
+            arr = m.counting_sort(arr, max_value, lambda a: m.get_digit(None, a, d+1))
+        return arr
     
     def mostrarVector(self, vector):
         
@@ -397,11 +444,10 @@ while(opcion != 10):
                 
         print("=========== ORDENAMIENTO QUICKSORT ===========")
         print(mo.ordenamientoQuickSort(None, mo.vector1000(None).copy(), 0, len(mo.vector1000(None).copy())-1))
-        #mo.ordenamientoQuickSort(None, mo.vector10000(None).copy())
-        #mo.ordenamientoQuickSort(None, mo.vector100000(None).copy())
-        #mo.ordenamientoQuickSort(None, mo.vector1000000(None).copy())
+        print(mo.ordenamientoQuickSort(None, mo.vector10000(None).copy(), 0, len(mo.vector10000(None).copy())-1))
+        print(mo.ordenamientoQuickSort(None, mo.vector100000(None).copy(), 0, len(mo.vector100000(None).copy())-1))
+        print(mo.ordenamientoQuickSort(None, mo.vector1000000(None).copy(), 0, len(mo.vector1000000(None).copy())-1))
         #mo.ordenamientoQuickSort(None, lista.copy())
-        
         
         print()
         print("---------------------------------------------------------------------------------")
@@ -413,7 +459,7 @@ while(opcion != 10):
         print()
                 
         print("=========== ORDENAMIENTO RADIXSORT ===========")
-        #mo.ordenamientoRadixSort(None, mo.vector1000(None).copy())
+        mo.ordenamientoRadixSort(None, mo.vector1000(None).copy())
         #mo.ordenamientoRadixSort(None, mo.vector10000(None).copy())
         #mo.ordenamientoRadixSort(None, mo.vector100000(None).copy())
         #mo.ordenamientoRadixSort(None, mo.vector1000000(None).copy())
