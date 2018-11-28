@@ -258,7 +258,7 @@ class MetodosOrdenamiento:
         # O(k(n+k))
         for d in range(num_digits):
             # Counting sort takes O(n+k)
-            arr = m.counting_sort(arr, max_value, lambda a: m.get_digit(None, a, d+1))
+            arr = m.counting_sort(None, arr, max_value, lambda a: m.get_digit(None, a, d+1))
         return arr
     
     def mostrarVector(self, vector):
@@ -443,10 +443,10 @@ while(opcion != 10):
         print()
                 
         print("=========== ORDENAMIENTO QUICKSORT ===========")
-        print(mo.ordenamientoQuickSort(None, mo.vector1000(None).copy(), 0, len(mo.vector1000(None).copy())-1))
-        print(mo.ordenamientoQuickSort(None, mo.vector10000(None).copy(), 0, len(mo.vector10000(None).copy())-1))
-        print(mo.ordenamientoQuickSort(None, mo.vector100000(None).copy(), 0, len(mo.vector100000(None).copy())-1))
-        print(mo.ordenamientoQuickSort(None, mo.vector1000000(None).copy(), 0, len(mo.vector1000000(None).copy())-1))
+        print(mo.ordenamientoQuickSort(None, arreglo1.copy(), 0, len(arreglo1.copy())-1))
+        print(mo.ordenamientoQuickSort(None, arreglo2.copy(), 0, len(arreglo2.copy())-1))
+        print(mo.ordenamientoQuickSort(None, arreglo3.copy(), 0, len(arreglo3.copy())-1))
+        print(mo.ordenamientoQuickSort(None, arreglo4.copy(), 0, len(arreglo4.copy())-1))
         #mo.ordenamientoQuickSort(None, lista.copy())
         
         print()
@@ -459,16 +459,82 @@ while(opcion != 10):
         print()
                 
         print("=========== ORDENAMIENTO RADIXSORT ===========")
-        mo.ordenamientoRadixSort(None, mo.vector1000(None).copy())
-        #mo.ordenamientoRadixSort(None, mo.vector10000(None).copy())
-        #mo.ordenamientoRadixSort(None, mo.vector100000(None).copy())
-        #mo.ordenamientoRadixSort(None, mo.vector1000000(None).copy())
-        mo.ordenamientoRadixSort(None, lista.copy())
+        mo.mostrarVector(None, mo.ordenamientoRadixSort(None, arreglo1.copy(), len(arreglo1.copy())-1))
+        mo.mostrarVector(None, mo.ordenamientoRadixSort(None, arreglo2.copy(), len(arreglo2.copy())-1))
+        mo.mostrarVector(None, mo.ordenamientoRadixSort(None, arreglo3.copy(), len(arreglo3.copy())-1))
+        mo.mostrarVector(None, mo.ordenamientoRadixSort(None, arreglo4.copy(), len(arreglo4.copy())-1))
+        #mo.ordenamientoRadixSort(None, lista.copy())
         
         
         print()
         print("---------------------------------------------------------------------------------")
         print()                  
+    elif(opcion == 7):
+        print()
+        print("---------------------------------------------------------------------------------")
+        print()
+                
+        print("=========== ORDENAMIENTO RADIXSORT ===========")
+        print()
+        archivo3=open ("ArchivoSalida.txt", "w")
+        archivo1=open("Archivo1.txt", "r")
+        archivo2=open("Archivo2.txt", "r")
+        repetir=True
+          
+        lineaArchivo1=archivo1.readline() 
+        lineaArchivo2=archivo2.readline()
+         
+        
+        '''Se realizan comparaciones mientras la bandera no cambie'''
+        while(repetir):
+            if(int(lineaArchivo1)<int(lineaArchivo2)):
+                archivo3.write(lineaArchivo1)
+                lineaArchivo1=archivo1.readline()
+                if(lineaArchivo1==""):
+                    archivo3.write("\n")
+                    archivo3.write(lineaArchivo2)
+                    lineaArchivo2=archivo2.readline()
+                    while(lineaArchivo2!=""):
+                        archivo3.write(lineaArchivo2)
+                        lineaArchivo2=archivo2.readline()
+                    repetir=False
+            elif(int(lineaArchivo1)>int(lineaArchivo2)):
+                archivo3.write(lineaArchivo2)
+                lineaArchivo2=archivo2.readline()
+                if(lineaArchivo2==""):
+                    archivo3.write("\n")
+                    archivo3.write(lineaArchivo1)
+                    lineaArchivo1=archivo1.readline()
+                    while(lineaArchivo1!=""):
+                        archivo3.write(lineaArchivo1)
+                        lineaArchivo1=archivo1.readline()
+                    repetir=False
+            else:
+                archivo3.write(lineaArchivo1)
+                archivo3.write(lineaArchivo2)
+                lineaArchivo1=archivo1.readline()
+                if(lineaArchivo1==""):
+                    archivo3.write("\n")
+                    archivo3.write(lineaArchivo2)
+                    lineaArchivo2=archivo2.readline()
+                    while(lineaArchivo2!=""):
+                        archivo3.write(lineaArchivo2)
+                        lineaArchivo2=archivo2.readline()
+                    repetir=False
+                lineaArchivo2=archivo2.readline()
+                if(lineaArchivo2==""):
+                    archivo3.write("\n")
+                    archivo3.write(lineaArchivo1)
+                    lineaArchivo1=archivo1.readline()
+                    while(lineaArchivo1!=''):
+                        archivo3.write(lineaArchivo1)
+                        lineaArchivo1=archivo1.readline()
+                    repetir=False
+        archivo2.close
+        archivo1.close
+        print("Archivos combinados y ordenados correctamente")
+        archivo3.close
+        
     
     elif(opcion == 0):
         print("S A L I E N D O . . .")
