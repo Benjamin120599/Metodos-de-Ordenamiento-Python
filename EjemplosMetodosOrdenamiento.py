@@ -575,10 +575,7 @@ while(opcion != 10):
         for x in lst:
             file.write(str(x)+"\n")
         file.close()
-        
-        
-        
-        
+
         def merge_sort(A):
             n = len(A)
             if n==1:
@@ -619,7 +616,50 @@ while(opcion != 10):
         # closes 'mergeSortResult.txt'
         file.close()
         print('Lista ordenada: ', lst)
+    
+    elif(opcion == 9):
+        def mezclaNatural(arr): 
+            if len(arr) >1: 
+                mitad = len(arr)//2 
+                aux1 = arr[:mitad]   
+                aux2 = arr[mitad:] 
+                mezclaNatural(aux1) 
+                mezclaNatural(aux2)  
+          
+                i = j = k = 0
         
+                while i < len(aux1) and j < len(aux2): 
+                    if aux1[i] < aux2[j]: 
+                        arr[k] = aux1[i] 
+                        i+=1
+                    else: 
+                        arr[k] = aux2[j] 
+                        j+=1
+                    k+=1
+                  
+                while i < len(aux1): 
+                    arr[k] = aux1[i] 
+                    i+=1
+                    k+=1
+                  
+                while j < len(aux2): 
+                    arr[k] = aux2[j] 
+                    j+=1
+                    k+=1
+    
+        def mostrar(arr): 
+            for i in range(len(arr)):         
+                print(arr[i],end=" ") 
+            print() 
+
+
+        archivo1=open("Archivo1.txt", "r")
+        lineaArchivo1=archivo1.readline() 
+        arr=lineaArchivo1.split(",")
+        archivo1.close
+        mostrar(arr) 
+        mezclaNatural(arr) 
+        mostrar(arr) 
     
     elif(opcion == 0):
         print("S A L I E N D O . . .")
