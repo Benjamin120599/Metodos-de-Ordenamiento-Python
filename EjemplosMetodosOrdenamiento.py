@@ -348,6 +348,9 @@ while(opcion != 10):
     print("4) Ordenamiento ShellSort.")
     print("5) Ordenamiento QuickSort.")
     print("6) Ordenamiento RadixSort. ")
+    print("7) Ordenamiento Por Intercalacion de archivos.")
+    print("8) Ordenamiento Mezcla Directa.")
+    print("9) Ordenamiento Mezcla Natural.")
     print("10) Salir.")
     print()
     opcion = int(raw_input("Elija una opcion: "))
@@ -474,7 +477,7 @@ while(opcion != 10):
         print("---------------------------------------------------------------------------------")
         print()
                 
-        print("=========== ORDENAMIENTO RADIXSORT ===========")
+        print("=========== INTERCALACION DE ARCHIVOS ===========")
         print()
         archivo3=open ("ArchivoSalida.txt", "w")
         archivo1=open("Archivo1.txt", "r")
@@ -534,6 +537,88 @@ while(opcion != 10):
         archivo1.close
         print("Archivos combinados y ordenados correctamente")
         archivo3.close
+    elif(opcion == 8):
+        
+        import random
+        randfile = open("Random.txt", "w")
+        
+        start = int(input('Ingresa el limite inferior para el rango de numeros: '))
+        end = int(input('Ingresa el limite superior para el rango de numeros: '))
+        
+        for i in range(int(input('Cuantos numeros desea generar?: '))):
+            line = str(random.randint(start, end))
+            randfile.write(line + '\n')
+            print(line)
+        
+        randfile.close()
+        
+        # example of selection sort algorithm : needs modification
+        
+        def swap(a, i, j):
+            (a[i], a[j]) = (a[j], a[i])
+        
+        def selectionSort(a):
+            n = len(a)
+            for startIndex in range(n):
+                minIndex = startIndex
+                for ind in range(startIndex+1, n):
+                    if a[ind] < a[minIndex]:
+                        minIndex = ind
+                swap(a, startIndex, minIndex)
+        
+        lst = []
+        with open("Random.txt", "r") as f:
+            for line in f:
+                lst.append(int(line.strip()))
+        
+        file = open("selectionSortResult","w")
+        for x in lst:
+            file.write(str(x)+"\n")
+        file.close()
+        
+        
+        
+        
+        def merge_sort(A):
+            n = len(A)
+            if n==1:
+                return A
+            mid = n//2   # floor division
+            L = merge_sort(A[:mid])
+            R = merge_sort(A[mid:])
+            return merge(L,R)
+        
+        def merge(L,R):
+            
+            i = 0
+            j = 0
+            answer = []
+            while i<len(L) and j<len(R):
+                if L[i]<R[j]:
+                    answer.append(L[i])
+                    i += 1
+                else:
+                    answer.append(R[j])
+                    j += 1
+            if i<len(L):
+                answer.extend(L[i:])
+            if j<len(R):
+                answer.extend(R[j:])
+            return answer
+        
+        lst = []
+        # opens and reads 'Random.txt'
+        with open("Random.txt", "r") as f:
+            for line in f:
+                lst.append(int(line.strip()))
+        
+        # opens and writes to file 'mergeSortResult.txt'
+        file = open("mergeSortResult","w")
+        for x in lst:
+            file.write(str(x)+"\n")
+        # closes 'mergeSortResult.txt'
+        file.close()
+        print('Lista ordenada: ', lst)
         
     
     elif(opcion == 0):
