@@ -653,7 +653,7 @@ while(opcion != 10):
             print() 
 
 
-        archivo1=open("Archivo1.txt", "r")
+        archivo1=open("Arch1.txt", "r")
         lineaArchivo1=archivo1.readline() 
         arr=lineaArchivo1.split(",")
         archivo1.close
@@ -663,26 +663,4 @@ while(opcion != 10):
     
     elif(opcion == 0):
         print("S A L I E N D O . . .")
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
